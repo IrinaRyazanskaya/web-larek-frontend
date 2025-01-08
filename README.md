@@ -13,7 +13,10 @@
 Важные файлы:
 
 - src/pages/index.html — HTML-файл главной страницы
-- src/types/index.ts — файл с типами
+- src/types/api — типы данных для клиента
+- src/types/models - типы, описывающие модели данных
+- src/types/presenters - типы, описывающие интерфейсы представителей
+- src/types/views - типы, описывающие интерфейсы отображений
 - src/index.ts — точка входа приложения
 - src/scss/styles.scss — корневой файл стилей
 - src/utils/constants.ts — файл с константами
@@ -55,62 +58,57 @@ yarn build
 
 Модели хранят данные и управляют ими.
 
-**Products** хранит список товаров, загружает их из API.
+**ProductsModel** хранит список товаров, загружает их из API.
 
 ```typescript
-interface Product {
-  id: number;
+interface ProductModel {
+  id: string;
   title: string;
-  price: {
-    amount: number;
-    currency: string;
-  };
+  price: number | null;
   image: string;
   description: string;
 }
 
-export class Products {
-	products: Product[];
+export interface ProductsModel {
+	products: ProductModel[];
 	isLoading: boolean;
 
-	async fetchProducts(): Promise<void>; // Загружает товары из API
-	getProducts(): Product[]; // Возвращает список товаров
-	getProductById(productId: number): Product | undefined; // Возвращает товар по ID
+	fetchProducts(): Promise<void>; // Загружает товары из API
+	getProducts(): ProductModel[]; // Возвращает список товаров
+	getProductById(productId: string): ProductModel | undefined; // Возвращает товар по ID
 }
 ```
 
-**Cart** управляет состоянием корзины: позволяет добавлять и удалять товары, считать статистику.
+**CartModel** управляет состоянием корзины: позволяет добавлять и удалять товары, считать статистику.
 
 ```typescript
-import { Product } from "./product";
+export interface CartModel {
+  items: ProductModel[];
 
-export class Cart {
-  items: Product[];
-
-  addProduct(product: Product): void; // Добавляет товар в корзину
-  removeProduct(productId: number): void; // Удаляет товар из корзины
-  getItems(): Product[]; // Возвращает список товаров в корзине
+  addProduct(product: ProductModel): void; // Добавляет товар в корзину
+  removeProduct(productId: string): void; // Удаляет товар из корзины
+  getItems(): ProductModel[]; // Возвращает список товаров в корзине
   getTotalQuantity(): number; // Возвращает общее количество товаров
   getTotalPrice(): number; // Возвращает общую стоимость корзины
   clear(): void; // Очищает корзину
 }
 ```
 
-**User** хранит данные пользователя, позволяет их обновлять и проверяет их валидность.
+**UserModel** хранит данные пользователя, позволяет их обновлять и проверяет их валидность.
 
 ```typescript
-export interface UserData {
+export interface UserDataModel {
   email: string;
   phone: string;
   address: string;
-  paymentMethod: "online" | "cash";
+  payment: string;
 }
 
-export class User {
-  data: UserData;
+export interface UserModel {
+  data: UserDataModel;
 
-  updateData(newData: Partial<UserData>): void; // Обновляет данные пользователя
-  getData(): UserData; // Возвращает текущие данные пользователя
+  updateData(newData: Partial<UserDataModel>): void; // Обновляет данные пользователя
+  getData(): UserDataModel; // Возвращает текущие данные пользователя
   isValid(): boolean; // Проверяет валидность данных пользователя
   reset(): void; // Очищает данные пользователя
 }
@@ -124,7 +122,7 @@ export class User {
 
 ```typescript
 export interface ProductListView {
-  render(products: Product[], onClick: (productId: number) => void): HTMLElement; // Отображает список товаров
+  render(products: ProductModel[], onClick: (productId: string) => void): HTMLElement; // Отображает список товаров
 }
 ```
 
@@ -132,7 +130,7 @@ export interface ProductListView {
 
 ```typescript
 export interface ProductCardView {
-  render(product: Product, onClick: (productId: number) => void): HTMLElement; // Создаёт карточку товара
+  render(product: ProductModel, onClick: (productId: string) => void): HTMLElement; // Создаёт карточку товара
 }
 ```
 
@@ -140,7 +138,7 @@ export interface ProductCardView {
 
 ```typescript
 export interface ProductModalView {
-  render(product: Product, onAddToCart: (productId: number) => void): HTMLElement; // Отображает информацию о товаре
+  render(product: ProductModel, onAddToCart: (productId: string) => void): HTMLElement; // Отображает информацию о товаре
 }
 ```
 
@@ -148,7 +146,7 @@ export interface ProductModalView {
 
 ```typescript
 export interface CartModalView {
-  render(items: Product[], onCheckout: () => void): HTMLElement; // Отображает содержимое корзины и кнопку оформления
+  render(items: ProductModel[], onCheckout: () => void): HTMLElement; // Отображает содержимое корзины и кнопку оформления
 }
 ```
 
@@ -165,7 +163,7 @@ export interface CartButtonView {
 ```typescript
 export interface CheckoutModalView {
   render(
-    onSubmit: (formData: UserData) => void // Колбэк для отправки формы
+    onSubmit: (formData: UserDataModel) => void // Колбэк для отправки формы
   ): HTMLElement; // Отображает форму
 }
 ```
@@ -179,25 +177,24 @@ export interface CheckoutModalView {
 ```typescript
 export interface ProductPresenter {
   loadProducts(): Promise<void>; // Загружает список товаров из модели
-  openProductModal(productId: number): void; // Открывает модальное окно с информацией о товаре
+  openProductModal(productId: string): void; // Открывает модальное окно с информацией о товаре
 }
 ```
 
-**CartPresenter** управляет состоянием корзины и её отображением. Использует модель Cart для добавления, удаления товаров и получения их списка. Обновляет счётчик товаров в корзине у CartButtonView. Управляет CartModalView для отображения содержимого корзины.
+**CartPresenter** управляет состоянием корзины и её отображением. Использует модель CartModel для добавления, удаления товаров и получения их списка. Обновляет счётчик товаров в корзине у CartButtonView. Управляет CartModalView для отображения содержимого корзины.
 
 ```typescript
 export interface CartPresenter {
-  addProduct(product: Product): void; // Добавляет товар в корзину
+  addProduct(product: ProductModel): void; // Добавляет товар в корзину
   openCartModal(): void; // Открывает модальное окно корзины
 }
 ```
 
-**CheckoutPresenter** управляет процессом оформления заказа. Использует модель User для хранения данных пользователя.
-Управляет CheckoutModalView для отображения формы ввода данных. Передаёт данные формы обратно в модель User.
+**CheckoutPresenter** управляет процессом оформления заказа. Использует модель UserModel для хранения данных пользователя. Управляет CheckoutModalView для отображения формы ввода данных. Передаёт данные формы обратно в модель UserModel.
 
 ```typescript
 export interface CheckoutPresenter {
   openCheckoutModal(): void; // Открывает модальное окно оформления заказа
-  submitOrder(formData: UserData): void; // Отправляет данные заказа
+  submitOrder(formData: UserDataModel): void; // Отправляет данные заказа
 }
 ```
