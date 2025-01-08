@@ -1,6 +1,6 @@
 # Проектная работа "Веб-ларёк"
 
-"Веб-ларёк" это интернет-магазин с товарами для веб-разработчиков. В нём можно посмотреть каталог товаров, добавить товары в корзину и сделать заказ. 
+"Веб-ларёк" это интернет-магазин с товарами для веб-разработчиков. В нём можно посмотреть каталог товаров, добавить товары в корзину и сделать заказ.
 
 Стек: HTML, SCSS, TS, Webpack
 
@@ -62,11 +62,11 @@ yarn build
 
 ```typescript
 interface ProductModel {
-  id: string;
-  title: string;
-  price: number | null;
-  image: string;
-  description: string;
+	id: string;
+	title: string;
+	price: number | null;
+	image: string;
+	description: string;
 }
 
 export interface ProductsModel {
@@ -83,14 +83,14 @@ export interface ProductsModel {
 
 ```typescript
 export interface CartModel {
-  items: ProductModel[];
+	items: ProductModel[];
 
-  addProduct(product: ProductModel): void; // Добавляет товар в корзину
-  removeProduct(productId: string): void; // Удаляет товар из корзины
-  getItems(): ProductModel[]; // Возвращает список товаров в корзине
-  getTotalQuantity(): number; // Возвращает общее количество товаров
-  getTotalPrice(): number; // Возвращает общую стоимость корзины
-  clear(): void; // Очищает корзину
+	addProduct(product: ProductModel): void; // Добавляет товар в корзину
+	removeProduct(productId: string): void; // Удаляет товар из корзины
+	getItems(): ProductModel[]; // Возвращает список товаров в корзине
+	getTotalQuantity(): number; // Возвращает общее количество товаров
+	getTotalPrice(): number; // Возвращает общую стоимость корзины
+	clear(): void; // Очищает корзину
 }
 ```
 
@@ -98,19 +98,19 @@ export interface CartModel {
 
 ```typescript
 export interface UserDataModel {
-  email: string;
-  phone: string;
-  address: string;
-  payment: string;
+	email: string;
+	phone: string;
+	address: string;
+	payment: string;
 }
 
 export interface UserModel {
-  data: UserDataModel;
+	data: UserDataModel;
 
-  updateData(newData: Partial<UserDataModel>): void; // Обновляет данные пользователя
-  getData(): UserDataModel; // Возвращает текущие данные пользователя
-  isValid(): boolean; // Проверяет валидность данных пользователя
-  reset(): void; // Очищает данные пользователя
+	updateData(newData: Partial<UserDataModel>): void; // Обновляет данные пользователя
+	getData(): UserDataModel; // Возвращает текущие данные пользователя
+	isValid(): boolean; // Проверяет валидность данных пользователя
+	reset(): void; // Очищает данные пользователя
 }
 ```
 
@@ -122,7 +122,10 @@ export interface UserModel {
 
 ```typescript
 export interface ProductListView {
-  render(products: ProductModel[], onClick: (productId: string) => void): HTMLElement; // Отображает список товаров
+	render(
+		products: ProductModel[],
+		onClick: (productId: string) => void
+	): HTMLElement; // Отображает список товаров
 }
 ```
 
@@ -130,7 +133,10 @@ export interface ProductListView {
 
 ```typescript
 export interface ProductCardView {
-  render(product: ProductModel, onClick: (productId: string) => void): HTMLElement; // Создаёт карточку товара
+	render(
+		product: ProductModel,
+		onClick: (productId: string) => void
+	): HTMLElement; // Создаёт карточку товара
 }
 ```
 
@@ -138,7 +144,10 @@ export interface ProductCardView {
 
 ```typescript
 export interface ProductModalView {
-  render(product: ProductModel, onAddToCart: (productId: string) => void): HTMLElement; // Отображает информацию о товаре
+	render(
+		product: ProductModel,
+		onAddToCart: (productId: string) => void
+	): HTMLElement; // Отображает информацию о товаре
 }
 ```
 
@@ -146,7 +155,7 @@ export interface ProductModalView {
 
 ```typescript
 export interface CartModalView {
-  render(items: ProductModel[], onCheckout: () => void): HTMLElement; // Отображает содержимое корзины и кнопку оформления
+	render(items: ProductModel[], onCheckout: () => void): HTMLElement; // Отображает содержимое корзины и кнопку оформления
 }
 ```
 
@@ -154,7 +163,7 @@ export interface CartModalView {
 
 ```typescript
 export interface CartButtonView {
-  render(itemsCount: number, onCartOpen: () => void): HTMLElement; // Отображает кнопку открытия корзины и счётчик
+	render(itemsCount: number, onCartOpen: () => void): HTMLElement; // Отображает кнопку открытия корзины и счётчик
 }
 ```
 
@@ -162,22 +171,22 @@ export interface CartButtonView {
 
 ```typescript
 export interface CheckoutModalView {
-  render(
-    onSubmit: (formData: UserDataModel) => void // Колбэк для отправки формы
-  ): HTMLElement; // Отображает форму
+	render(
+		onSubmit: (formData: UserDataModel) => void // Колбэк для отправки формы
+	): HTMLElement; // Отображает форму
 }
 ```
 
-### Presenters 
+### Presenters
 
-Предназначены для связывания моделей и представлений. Получают данные из моделей и передают их представлениям. И наоборот, обрабатывают события из представлений и обновляют модели. 
+Предназначены для связывания моделей и представлений. Получают данные из моделей и передают их представлениям. И наоборот, обрабатывают события из представлений и обновляют модели.
 
 **ProductPresenter** управляет отображением списка товаров и открытием карточки выбранного товара. Использует модель Products для получения списка товаров и деталей конкретного товара. Передаёт данные в ProductListView для отображения. Управляет ProductModalView для отображения деталей товара.
 
 ```typescript
 export interface ProductPresenter {
-  loadProducts(): Promise<void>; // Загружает список товаров из модели
-  openProductModal(productId: string): void; // Открывает модальное окно с информацией о товаре
+	loadProducts(): Promise<void>; // Загружает список товаров из модели
+	openProductModal(productId: string): void; // Открывает модальное окно с информацией о товаре
 }
 ```
 
@@ -185,8 +194,8 @@ export interface ProductPresenter {
 
 ```typescript
 export interface CartPresenter {
-  addProduct(product: ProductModel): void; // Добавляет товар в корзину
-  openCartModal(): void; // Открывает модальное окно корзины
+	addProduct(product: ProductModel): void; // Добавляет товар в корзину
+	openCartModal(): void; // Открывает модальное окно корзины
 }
 ```
 
@@ -194,7 +203,7 @@ export interface CartPresenter {
 
 ```typescript
 export interface CheckoutPresenter {
-  openCheckoutModal(): void; // Открывает модальное окно оформления заказа
-  submitOrder(formData: UserDataModel): void; // Отправляет данные заказа
+	openCheckoutModal(): void; // Открывает модальное окно оформления заказа
+	submitOrder(formData: UserDataModel): void; // Отправляет данные заказа
 }
 ```
