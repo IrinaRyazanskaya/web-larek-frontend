@@ -1,6 +1,6 @@
 import type { ProductModel } from './products';
 
-export interface CartModel {
+export interface BasketModel {
 	items: ProductModel[];
 
 	addProduct(product: ProductModel): void; // Добавляет товар в корзину

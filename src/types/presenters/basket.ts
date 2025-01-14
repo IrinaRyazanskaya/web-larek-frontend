@@ -1,6 +1,6 @@
 import type { ProductModel } from '../models/products';
 
-export interface CartPresenter {
+export interface BasketPresenter {
 	addProduct(product: ProductModel): void; // Добавляет товар в корзину
-	openCartModal(): void; // Открывает модальное окно корзины
+	openBasketModal(): void; // Открывает модальное окно корзины
 }
