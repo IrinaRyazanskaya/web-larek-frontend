@@ -29,7 +29,7 @@ export interface WebLarekOrderResponse {
 }
 
 export interface WebLarekClient {
-  getProductList(): WebLarekProductListResponse;
-  getProductItem(id: string): WebLarekProductItemResponse;
-  createOrder(body: WebLarekOrderRequest): WebLarekOrderResponse;
+  getProductList(): Promise<WebLarekProductListResponse>;
+  getProductItem(id: string): Promise<WebLarekProductItemResponse>;
+  createOrder(body: WebLarekOrderRequest): Promise<WebLarekOrderResponse>;
 }

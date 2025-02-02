@@ -64,13 +64,13 @@ yarn build
 - get(uri: string) - делает запросы на получение данных
 - post(uri: string, data: object, method: ApiPostMethods = 'POST') - делает запросы на изменение данных
 
-**WebLarekClient** помогает делать запросы на сервер WEB-ларька.
+**WebLarekClient** помогает делать запросы на сервер WEB-ларька. Реализация этого интерфейса наследуется от класса Api.
 
 ```typescript
 interface WebLarekClient {
-	getProductList(): WebLarekProductListResponse;
-	getProductItem(id: string): WebLarekProductItemResponse;
-	createOrder(body: WebLarekOrderRequest): WebLarekOrderResponse;
+  getProductList(): Promise<WebLarekProductListResponse>;
+  getProductItem(id: string): Promise<WebLarekProductItemResponse>;
+  createOrder(body: WebLarekOrderRequest): Promise<WebLarekOrderResponse>;
 }
 ```
 
