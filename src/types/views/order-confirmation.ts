@@ -1,5 +1,9 @@
 export interface OrderConfirmationView {
 	// Отображает экран подтверждения успешного оформления заказа
-	// onClose - колбэк для закрытия модального окна
-	render(onClose: () => void): HTMLElement;
+  // totalAmount - итоговая сумма заказа
+  // onClose - функция, срабатывающая при закрытии модального окна
+	render(totalAmount: number, onClose: () => void): HTMLElement;
+
+  // Закрывает модальное окно
+  close(): void;
 }

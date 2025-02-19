@@ -6,8 +6,6 @@ export interface UserDataModel {
 }
 
 export interface UserModel {
-	data: UserDataModel;
-
 	updateData(newData: Partial<UserDataModel>): void; // Обновляет данные пользователя
 	getData(): UserDataModel; // Возвращает текущие данные пользователя
   checkAddressValid(): string | null; // Проверяет правильность заполнения адреса

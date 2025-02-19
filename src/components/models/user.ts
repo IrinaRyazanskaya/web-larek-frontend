@@ -4,7 +4,7 @@ const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const phoneRegex = /^\+?[0-9\s\-()]{7,}$/;
 
 class UserModelImpl implements UserModel {
-	data: UserDataModel;
+	private data: UserDataModel;
 
 	constructor() {
 		this.data = {

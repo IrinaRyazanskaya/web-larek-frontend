@@ -1,20 +1,26 @@
-import type { BasketModel } from '../../types/models/basket';
+import type { BasketItemModel, BasketModel } from '../../types/models/basket';
 import { ProductModel } from '../../types/models/products';
 
 class BasketModelImpl implements BasketModel {
-	items: ProductModel[];
+	private items: BasketItemModel[];
+
+	constructor() {
+		this.items = [];
+	}
 
 	addProduct(product: ProductModel): void {
-		this.items.push(product);
+		const basketItem: BasketItemModel = {
+			...product,
+			orderItemId: this.generateOrderItemId(),
+		};
+		this.items.push(basketItem);
 	}
 
-	removeProduct(productId: string): void {
-		this.items = this.items.filter((item) => {
-			return item.id !== productId;
-		});
+	removeProduct(orderItemId: string): void {
+		this.items = this.items.filter((item) => item.orderItemId !== orderItemId);
 	}
 
-	getItems(): ProductModel[] {
+	getItems(): BasketItemModel[] {
 		return this.items;
 	}
 
@@ -34,6 +40,10 @@ class BasketModelImpl implements BasketModel {
 
 	clear(): void {
 		this.items = [];
+	}
+
+	private generateOrderItemId(): string {
+		return Math.random().toString(36).slice(2, 12);
 	}
 }
 
