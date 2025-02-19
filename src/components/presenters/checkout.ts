@@ -97,7 +97,8 @@ class CheckoutPresenterImpl implements CheckoutPresenter {
 				this.basketButtonView.clearCounter();
 			})
 			.catch((error) => {
-				console.error(error);
+				this.orderContactsView.setError(error);
+				this.orderContactsView.setButtonState(false);
 			});
 	}
 

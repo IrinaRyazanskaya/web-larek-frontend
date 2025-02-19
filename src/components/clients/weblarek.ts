@@ -16,7 +16,7 @@ class WebLarekClientImpl extends Api implements WebLarekClient {
 	getProductList(): Promise<WebLarekProductListResponse> {
 		return (this.get('/product/') as Promise<WebLarekProductListResponse>).then((response) => {
 			for (const item of response.items) {
-				item.image = CDN_URL + item.image;
+				item.image = this.processImageUrl(item.image);
 			}
 
 			return response;
@@ -25,7 +25,7 @@ class WebLarekClientImpl extends Api implements WebLarekClient {
 
 	getProductItem(id: string): Promise<WebLarekProductItemResponse> {
 		return (this.get(`/product/${id}`) as Promise<WebLarekProductItemResponse>).then((response) => {
-			response.image = CDN_URL + response.image;
+			response.image = this.processImageUrl(response.image);
 
 			return response;
 		});
@@ -33,6 +33,10 @@ class WebLarekClientImpl extends Api implements WebLarekClient {
 
 	createOrder(body: WebLarekOrderRequest): Promise<WebLarekOrderResponse> {
 		return this.post('/order', body, 'POST') as Promise<WebLarekOrderResponse>;
+	}
+
+	private processImageUrl(imagePath: string): string {
+		return `${CDN_URL}${imagePath}`;
 	}
 }
 

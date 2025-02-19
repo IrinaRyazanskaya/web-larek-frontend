@@ -21,7 +21,7 @@ class BasketPresenterImpl implements BasketPresenter {
 		this.basketButtonView = basketButtonView;
 		this.basketModalView = basketModalView;
 		this.checkoutPresenter = checkoutPresenter;
-    this.openNextModal = this.openNextModal.bind(this);
+		this.openNextModal = this.openNextModal.bind(this);
 		this.removeProduct = this.removeProduct.bind(this);
 		this.openBasketModal = this.openBasketModal.bind(this);
 		this.closeBasketModal = this.closeBasketModal.bind(this);
@@ -35,7 +35,7 @@ class BasketPresenterImpl implements BasketPresenter {
 
 	removeProduct(orderItemId: string): void {
 		this.basketModel.removeProduct(orderItemId);
-    this.basketModalView.setTotalPrice(this.basketModel.getTotalPrice());
+		this.basketModalView.setTotalPrice(this.basketModel.getTotalPrice());
 		this.basketModalView.setButtonState(this.basketModel.getTotalQuantity() > 0);
 		this.basketButtonView.render(this.basketModel.getTotalQuantity());
 	}
@@ -43,7 +43,7 @@ class BasketPresenterImpl implements BasketPresenter {
 	openBasketModal(): void {
 		this.basketModalView.render(
 			this.basketModel.getItems(),
-      this.basketModel.getTotalPrice(),
+			this.basketModel.getTotalPrice(),
 			this.openNextModal,
 			this.removeProduct,
 			this.closeBasketModal

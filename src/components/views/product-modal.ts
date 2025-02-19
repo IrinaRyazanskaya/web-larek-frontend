@@ -8,7 +8,7 @@ class ProductModalViewImpl extends Modal implements ProductModalView {
 	private template: HTMLTemplateElement;
 
 	constructor(container: HTMLElement, template: HTMLTemplateElement) {
-    super();
+		super();
 		this.container = container;
 		this.template = template;
 	}
@@ -18,33 +18,38 @@ class ProductModalViewImpl extends Modal implements ProductModalView {
 		onAddToBasket: (productId: string) => void,
 		onClose: () => void
 	): HTMLElement {
-    super.renderModal(onClose)
+		super.renderModal(onClose);
 
 		const templateContent = this.template.content.cloneNode(true) as HTMLElement;
-		const cardElement = templateContent.querySelector('.card');
+		const cardElement = templateContent.querySelector<HTMLElement>('.card');
 
-		const imageElement = cardElement.querySelector<HTMLImageElement>('.card__image');
-		imageElement.src = product.image;
-		imageElement.alt = product.title;
+		this.fillCardData(cardElement, product, onAddToBasket);
 
-		const categoryElement = cardElement.querySelector<HTMLElement>('.card__category');
-		categoryElement.textContent = product.category;
-
-		const titleElement = cardElement.querySelector<HTMLElement>('.card__title');
-		titleElement.textContent = product.title;
-
-		const textElement = cardElement.querySelector<HTMLElement>('.card__text');
-		textElement.textContent = product.description;
-
-		const priceElement = cardElement.querySelector<HTMLElement>('.card__price');
-		priceElement.textContent = formatPrice(product.price);
-
-		const buttonElement = cardElement.querySelector<HTMLButtonElement>('.card__button');
-		buttonElement.addEventListener('click', () => onAddToBasket(product.id));
-
-    this.modalContent.appendChild(cardElement);
+		this.modalContent.appendChild(cardElement);
 
 		return this.container;
+	}
+
+	private fillCardData(
+		cardElement: HTMLElement,
+		product: ProductModel,
+		onAddToBasket: (productId: string) => void
+	): void {
+		const imageElement = cardElement.querySelector<HTMLImageElement>('.card__image');
+		const categoryElement = cardElement.querySelector<HTMLElement>('.card__category');
+		const titleElement = cardElement.querySelector<HTMLElement>('.card__title');
+		const textElement = cardElement.querySelector<HTMLElement>('.card__text');
+		const priceElement = cardElement.querySelector<HTMLElement>('.card__price');
+		const buttonElement = cardElement.querySelector<HTMLButtonElement>('.card__button');
+
+		imageElement.src = product.image;
+		imageElement.alt = product.title;
+		categoryElement.textContent = product.category;
+		titleElement.textContent = product.title;
+		textElement.textContent = product.description;
+		priceElement.textContent = formatPrice(product.price);
+
+		buttonElement.addEventListener('click', () => onAddToBasket(product.id));
 	}
 }
 

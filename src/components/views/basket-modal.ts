@@ -9,7 +9,7 @@ class BasketModalViewImpl extends Modal implements BasketModalView {
 	private template: HTMLTemplateElement;
 	private itemTemplate: HTMLTemplateElement;
 	private checkoutButton: HTMLButtonElement | null = null;
-  private totalPriceElement: HTMLElement | null = null;
+	private totalPriceElement: HTMLElement | null = null;
 
 	constructor(
 		container: HTMLElement,
@@ -24,17 +24,17 @@ class BasketModalViewImpl extends Modal implements BasketModalView {
 
 	render(
 		items: BasketItemModel[],
-    totalPrice: number,
+		totalPrice: number,
 		onCheckout: () => void,
 		onItemRemove: (orderItemId: string) => void,
 		onClose: () => void
 	): HTMLElement {
-    super.renderModal(onClose)
+		super.renderModal(onClose);
 
 		const modalElement = this.template.content.cloneNode(true) as HTMLElement;
-		const basketList = modalElement.querySelector('.basket__list') as HTMLElement;
-		this.totalPriceElement = modalElement.querySelector('.basket__price') as HTMLElement;
-		this.checkoutButton = modalElement.querySelector('.basket__button') as HTMLButtonElement;
+		const basketList = modalElement.querySelector<HTMLElement>('.basket__list');
+		this.totalPriceElement = modalElement.querySelector<HTMLElement>('.basket__price');
+		this.checkoutButton = modalElement.querySelector<HTMLButtonElement>('.basket__button');
 
 		for (let i = 0; i < items.length; i++) {
 			const basketItemView = new BasketItemViewImpl(this.itemTemplate, () => {
@@ -44,7 +44,7 @@ class BasketModalViewImpl extends Modal implements BasketModalView {
 			basketList.appendChild(basketItemView.render(items[i], i));
 		}
 
-    this.setTotalPrice(totalPrice);
+		this.setTotalPrice(totalPrice);
 		this.setButtonState(items.length > 0);
 
 		this.checkoutButton.addEventListener('click', () => onCheckout());
@@ -60,9 +60,9 @@ class BasketModalViewImpl extends Modal implements BasketModalView {
 		}
 	}
 
-  setTotalPrice(totalPrice: number): void {
-    this.totalPriceElement.textContent = formatPrice(totalPrice);
-  }
+	setTotalPrice(totalPrice: number): void {
+		this.totalPriceElement.textContent = formatPrice(totalPrice);
+	}
 }
 
 export { BasketModalViewImpl };

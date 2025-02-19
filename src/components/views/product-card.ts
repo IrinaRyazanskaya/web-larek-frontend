@@ -20,23 +20,25 @@ class ProductCardViewImpl implements ProductCardView {
 	render(product: ProductModel): HTMLElement {
 		const cardElement = this.template.content.firstElementChild.cloneNode(true) as HTMLElement;
 
-		const titleElement = cardElement.querySelector('.card__title') as HTMLElement;
-		const imageElement = cardElement.querySelector('.card__image') as HTMLImageElement;
-		const priceElement = cardElement.querySelector('.card__price') as HTMLElement;
-		const categoryElement = cardElement.querySelector('.card__category') as HTMLElement;
-
-		titleElement.textContent = product.title;
-
-		priceElement.textContent = formatPrice(product.price);
-
-		imageElement.src = product.image;
-		imageElement.alt = product.title;
-		categoryElement.textContent = product.category;
+		this.fillCardData(cardElement, product);
 
 		cardElement.addEventListener('click', () => this.onClick(product.id));
 		this.container.appendChild(cardElement);
 
 		return cardElement;
+	}
+
+	private fillCardData(cardElement: HTMLElement, product: ProductModel): void {
+		const titleElement = cardElement.querySelector<HTMLElement>('.card__title');
+		const imageElement = cardElement.querySelector<HTMLImageElement>('.card__image');
+		const priceElement = cardElement.querySelector<HTMLElement>('.card__price');
+		const categoryElement = cardElement.querySelector<HTMLElement>('.card__category');
+
+		titleElement.textContent = product.title;
+		priceElement.textContent = formatPrice(product.price);
+		imageElement.src = product.image;
+		imageElement.alt = product.title;
+		categoryElement.textContent = product.category;
 	}
 }
 

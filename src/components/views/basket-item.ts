@@ -14,18 +14,18 @@ class BasketItemViewImpl implements BasketItemView {
 	render(item: ProductModel, index: number): HTMLElement {
 		const itemElement = this.template.content.cloneNode(true) as HTMLElement;
 
-    const container = itemElement.querySelector('.basket__item') as HTMLElement;
+		const container = itemElement.querySelector<HTMLElement>('.basket__item');
 		container.querySelector('.basket__item-index').textContent = (index + 1).toString();
 		container.querySelector('.card__title').textContent = item.title;
 		container.querySelector('.card__price').textContent = formatPrice(item.price);
 
-    const deleteButton = container.querySelector('.basket__item-delete') as HTMLButtonElement;
+		const deleteButton = container.querySelector<HTMLButtonElement>('.basket__item-delete');
 		deleteButton.addEventListener('click', () => {
-       this.onDelete();
-       container.remove();
-    });
+			this.onDelete();
+			container.remove();
+		});
 
-    return container;
+		return container;
 	}
 }
 
