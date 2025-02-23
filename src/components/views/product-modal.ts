@@ -15,6 +15,7 @@ class ProductModalViewImpl extends Modal implements ProductModalView {
 
 	render(
 		product: ProductModel,
+		isAllowedToBuy: boolean,
 		onAddToBasket: (productId: string) => void,
 		onClose: () => void
 	): HTMLElement {
@@ -23,7 +24,7 @@ class ProductModalViewImpl extends Modal implements ProductModalView {
 		const templateContent = this.template.content.cloneNode(true) as HTMLElement;
 		const cardElement = templateContent.querySelector<HTMLElement>('.card');
 
-		this.fillCardData(cardElement, product, onAddToBasket);
+		this.fillCardData(cardElement, product, isAllowedToBuy, onAddToBasket);
 
 		this.modalContent.appendChild(cardElement);
 
@@ -33,6 +34,7 @@ class ProductModalViewImpl extends Modal implements ProductModalView {
 	private fillCardData(
 		cardElement: HTMLElement,
 		product: ProductModel,
+		isAllowedToBuy: boolean,
 		onAddToBasket: (productId: string) => void
 	): void {
 		const imageElement = cardElement.querySelector<HTMLImageElement>('.card__image');
@@ -49,7 +51,11 @@ class ProductModalViewImpl extends Modal implements ProductModalView {
 		textElement.textContent = product.description;
 		priceElement.textContent = formatPrice(product.price);
 
-		buttonElement.addEventListener('click', () => onAddToBasket(product.id));
+		if (!isAllowedToBuy) {
+			buttonElement.disabled = true;
+		} else {
+			buttonElement.addEventListener('click', () => onAddToBasket(product.id));
+		}
 	}
 }
 

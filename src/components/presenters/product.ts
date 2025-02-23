@@ -35,7 +35,8 @@ class ProductPresenterImpl implements ProductPresenter {
 
 	openProductModal(productId: string): void {
 		const product = this.productsModel.getProductById(productId);
-		this.productModalView.render(product, this.addProductToBasket, this.closeBasketModal);
+    const isAllowedToBuy = product.price !== null;
+		this.productModalView.render(product, isAllowedToBuy, this.addProductToBasket, this.closeBasketModal);
 	}
 
   private closeBasketModal(): void {
