@@ -110,7 +110,7 @@ interface BasketItemModel extends ProductModel {
 
 interface BasketModel {
 	addProduct(product: ProductModel): void; // Добавляет товар в корзину
-	removeProduct(orderItemId: string): void; // Удаляет товар из корзины
+	removeItem(orderItemId: string): void; // Удаляет товар из корзины
 	getItems(): BasketItemModel[]; // Возвращает список товаров в корзине
 	getTotalQuantity(): number; // Возвращает общее количество товаров
 	getTotalPrice(): number; // Возвращает общую стоимость корзины
@@ -333,6 +333,7 @@ interface ProductPresenter {
 Конструктор реализации ProductPresenter принимает следующие аргументы:
 
 - productsModel: ProductsModel
+- basketModel: BasketModel
 - productListView: ProductListView
 - productModalView: ProductModalView
 - basketPresenter: BasketPresenter

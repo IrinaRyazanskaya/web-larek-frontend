@@ -67,6 +67,7 @@ const basketPresenter = new BasketPresenterImpl(
 
 const productPresenter = new ProductPresenterImpl(
 	productsModel,
+  basketModel,
 	productListView,
 	productModalView,
 	basketPresenter

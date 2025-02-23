@@ -16,7 +16,7 @@ class BasketModelImpl implements BasketModel {
 		this.items.push(basketItem);
 	}
 
-	removeProduct(orderItemId: string): void {
+	removeItem(orderItemId: string): void {
 		this.items = this.items.filter((item) => item.orderItemId !== orderItemId);
 	}
 
