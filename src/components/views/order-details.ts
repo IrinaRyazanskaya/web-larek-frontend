@@ -60,12 +60,10 @@ class OrderDetailsViewImpl extends Modal implements OrderDetailsView {
 			const activeButton = this.form.querySelector<HTMLButtonElement>('.button_alt-active');
 			const paymentMethod = activeButton?.name;
 
-			if (paymentMethod && this.addressInput.value.trim()) {
-				onNext({
-					payment: paymentMethod,
-					address: this.addressInput.value.trim(),
-				});
-			}
+			onNext({
+				payment: paymentMethod,
+				address: this.addressInput.value,
+			});
 		});
 
 		this.modalContent.appendChild(content);

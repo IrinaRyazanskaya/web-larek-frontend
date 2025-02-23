@@ -12,7 +12,7 @@ class OrderContactsViewImpl extends Modal implements OrderContactsView {
 	private errorSpan: HTMLSpanElement | null = null;
 
 	constructor(container: HTMLElement, template: HTMLTemplateElement) {
-    super();
+		super();
 		this.container = container;
 		this.template = template;
 	}
@@ -20,9 +20,9 @@ class OrderContactsViewImpl extends Modal implements OrderContactsView {
 	render(
 		onNext: (data: Partial<UserDataModel>) => void,
 		onInput: (data: Partial<UserDataModel>) => void,
-    onClose: () => void
+		onClose: () => void
 	): HTMLElement {
-    super.renderModal(onClose);
+		super.renderModal(onClose);
 
 		const content = this.template.content.cloneNode(true) as HTMLElement;
 		this.form = content.querySelector('.form');
@@ -41,12 +41,10 @@ class OrderContactsViewImpl extends Modal implements OrderContactsView {
 		this.form.addEventListener('submit', (event) => {
 			event.preventDefault();
 
-			const email = this.emailInput.value.trim();
-			const phone = this.phoneInput.value.trim();
+			const email = this.emailInput.value;
+			const phone = this.phoneInput.value;
 
-			if (email && phone) {
-				onNext({ email, phone });
-			}
+			onNext({ email, phone });
 		});
 
 		this.modalContent.appendChild(content);
