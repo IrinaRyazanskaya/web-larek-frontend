@@ -14,10 +14,10 @@ class ProductListViewImpl implements ProductListView {
 	render(products: ProductModel[], onClick: (productId: string) => void): HTMLElement {
 		this.container.innerHTML = '';
 
-		const productCardView = new ProductCardViewImpl(this.container, this.cardTemplate, onClick);
+		const productCardView = new ProductCardViewImpl(this.cardTemplate, onClick);
 
 		products.forEach((product) => {
-			productCardView.render(product);
+			this.container.appendChild(productCardView.render(product));
 		});
 
 		return this.container;

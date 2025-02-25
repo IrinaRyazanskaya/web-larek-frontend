@@ -170,7 +170,6 @@ interface ProductCardView {
 
 Конструктор реализации ProductCardView принимает следующие аргументы:
 
-- container: HTMLElement
 - template: HTMLTemplateElement
 - onClick: (productId: string) => void
 

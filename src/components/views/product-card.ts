@@ -3,16 +3,10 @@ import type { ProductCardView } from '../../types/views/product-card';
 import { formatPrice } from '../../utils/prices';
 
 class ProductCardViewImpl implements ProductCardView {
-	private container: HTMLElement;
 	private template: HTMLTemplateElement;
 	private onClick: (productId: string) => void;
 
-	constructor(
-		container: HTMLElement,
-		template: HTMLTemplateElement,
-		onClick: (productId: string) => void
-	) {
-		this.container = container;
+	constructor(template: HTMLTemplateElement, onClick: (productId: string) => void) {
 		this.template = template;
 		this.onClick = onClick;
 	}
@@ -21,9 +15,7 @@ class ProductCardViewImpl implements ProductCardView {
 		const cardElement = this.template.content.firstElementChild.cloneNode(true) as HTMLElement;
 
 		this.fillCardData(cardElement, product);
-
 		cardElement.addEventListener('click', () => this.onClick(product.id));
-		this.container.appendChild(cardElement);
 
 		return cardElement;
 	}
