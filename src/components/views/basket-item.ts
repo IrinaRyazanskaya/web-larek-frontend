@@ -1,17 +1,15 @@
-import type { ProductModel } from '../../types/models/products';
+import type { BasketItemModel } from '../../types/models/basket';
 import type { BasketItemView } from '../../types/views/basket-item';
 import { formatPrice } from '../../utils/prices';
 
 class BasketItemViewImpl implements BasketItemView {
 	private template: HTMLTemplateElement;
-	private onDelete: () => void;
 
-	constructor(template: HTMLTemplateElement, onDelete: () => void) {
+	constructor(template: HTMLTemplateElement) {
 		this.template = template;
-		this.onDelete = onDelete;
 	}
 
-	render(item: ProductModel, index: number): HTMLElement {
+	render(item: BasketItemModel, index: number, onDelete: () => void): HTMLElement {
 		const itemElement = this.template.content.cloneNode(true) as HTMLElement;
 
 		const container = itemElement.querySelector<HTMLElement>('.basket__item');
@@ -20,10 +18,9 @@ class BasketItemViewImpl implements BasketItemView {
 		container.querySelector('.card__price').textContent = formatPrice(item.price);
 
 		const deleteButton = container.querySelector<HTMLButtonElement>('.basket__item-delete');
-		deleteButton.addEventListener('click', () => {
-			this.onDelete();
-			container.remove();
-		});
+		deleteButton.addEventListener('click', onDelete);
+
+    container.dataset.orderItemId = item.orderItemId;
 
 		return container;
 	}

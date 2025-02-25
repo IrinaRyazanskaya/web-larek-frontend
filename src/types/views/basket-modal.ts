@@ -9,6 +9,8 @@ export interface BasketModalView {
     onClose: () => void
 	): HTMLElement; // Отображает содержимое корзины и кнопку оформления
 
+  removeItem(orderItemId: string): void; // Удаляет товар из корзины
+
   setButtonState(isEnabled: boolean): void; // Обновляет состояние кнопки "Оформить" (активна/неактивна)
 
   setTotalPrice(totalPrice: number): void; // Обновляет итоговую сумму к оплате

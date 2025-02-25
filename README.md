@@ -158,20 +158,19 @@ interface ProductListView {
 Конструктор реализации ProductListView принимает следующие аргументы:
 
 - container: HTMLElement
-- cardTemplate: HTMLTemplateElement
+- cardView: ProductCardView
 
 **ProductCardView** отображает карточку одного товара с его названием, изображением, ценой и категорией. Реагирует на клики по карточке. Используется ProductListView для создания списка карточек. При клике вызывает onClick, который обрабатывает ProductPresenter.
 
 ```typescript
 interface ProductCardView {
-	render(product: ProductModel): HTMLElement; // Создаёт карточку товара
+	render(product: ProductModel, onClick: (productId: string) => void): HTMLElement; // Создаёт карточку товара
 }
 ```
 
 Конструктор реализации ProductCardView принимает следующие аргументы:
 
 - template: HTMLTemplateElement
-- onClick: (productId: string) => void
 
 **ProductModalView** отображает подробную информацию о товаре в модальном окне. Содержит кнопку "Добавить в корзину". Связан с ProductPresenter, который вызывает это окно при клике на карточку. Передаёт действие "Добавить в корзину" через onAddToBasket в BasketPresenter.
 
@@ -205,6 +204,8 @@ interface BasketModalView {
     onClose: () => void
 	): HTMLElement; // Отображает содержимое корзины и кнопку оформления
 
+  removeItem(orderItemId: string): void; // Удаляет товар из корзины
+
 	setButtonState(isEnabled: boolean): void; // Обновляет состояние кнопки "Оформить" (активна/неактивна)
 
   setTotalPrice(totalPrice: number): void; // Обновляет итоговую сумму к оплате
@@ -217,20 +218,20 @@ interface BasketModalView {
 
 - container: HTMLElement
 - template: HTMLTemplateElement
-- itemTemplate: HTMLTemplateElement
+- itemView: BasketItemView
 
 **BasketItemView** отображает элемент корзины и кнопку удаления из неё. Связан с BasketPresenter, который передаёт элемент корзины и обрабатывает нажатие кнопки удаления.
 
 ```typescript
 interface BasketItemView {
-	render(item: BasketItemModel, index: number): HTMLElement; // Отображает элемент корзины и кнопку удаления из неё
+	 // Отображает элемент корзины и кнопку удаления из неё
+	render(item: ProductModel, index: number, onDelete: () => void): HTMLElement;
 }
 ```
 
 Конструктор реализации BasketItemView принимает следующие аргументы:
 
 - template: HTMLTemplateElement
-- onDelete: () => void
 
 **BasketButtonView** отображает кнопку корзины со счётчиком добавленных товаров. Связан с BasketPresenter, который передает количество товаров в корзине и обрабатывает нажатие кнопки открытия корзины в модальном окне.
 

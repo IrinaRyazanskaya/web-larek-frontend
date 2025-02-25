@@ -1,7 +1,9 @@
 import { WebLarekClientImpl } from './components/clients/weblarek';
 import { BasketModelImpl } from './components/models/basket';
 import { ProductsModelImpl } from './components/models/products';
+import { BasketItemViewImpl } from './components/views/basket-item';
 import { BasketModalViewImpl } from './components/views/basket-modal';
+import { ProductCardViewImpl } from './components/views/product-card';
 import { ProductListViewImpl } from './components/views/product-list';
 import { ProductModalViewImpl } from './components/views/product-modal';
 import { BasketButtonViewImpl } from './components/views/basket-button';
@@ -24,14 +26,16 @@ const userModel = new UserModelImpl();
 
 const galleryElement = document.querySelector<HTMLElement>('.gallery');
 const cardCatalogTemplate = document.querySelector<HTMLTemplateElement>('#card-catalog');
-const productListView = new ProductListViewImpl(galleryElement, cardCatalogTemplate);
+const productCardView = new ProductCardViewImpl(cardCatalogTemplate);
+const productListView = new ProductListViewImpl(galleryElement, productCardView);
 
 const cardPreviewTemplate = document.querySelector<HTMLTemplateElement>('#card-preview');
 const productModalView = new ProductModalViewImpl(modalContainer, cardPreviewTemplate);
 
 const basketTemplate = document.querySelector<HTMLTemplateElement>('#basket');
 const basketItemTemplate = document.querySelector<HTMLTemplateElement>('#card-basket');
-const basketModalView = new BasketModalViewImpl(modalContainer, basketTemplate, basketItemTemplate);
+const basketItemView = new BasketItemViewImpl(basketItemTemplate)
+const basketModalView = new BasketModalViewImpl(modalContainer, basketTemplate, basketItemView);
 
 const basketButton = document.querySelector<HTMLElement>('.header__basket');
 const basketButtonView = new BasketButtonViewImpl(basketButton);
@@ -67,7 +71,7 @@ const basketPresenter = new BasketPresenterImpl(
 
 const productPresenter = new ProductPresenterImpl(
 	productsModel,
-  basketModel,
+	basketModel,
 	productListView,
 	productModalView,
 	basketPresenter

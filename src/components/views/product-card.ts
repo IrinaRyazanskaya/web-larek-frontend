@@ -4,18 +4,16 @@ import { formatPrice } from '../../utils/prices';
 
 class ProductCardViewImpl implements ProductCardView {
 	private template: HTMLTemplateElement;
-	private onClick: (productId: string) => void;
 
-	constructor(template: HTMLTemplateElement, onClick: (productId: string) => void) {
+	constructor(template: HTMLTemplateElement) {
 		this.template = template;
-		this.onClick = onClick;
 	}
 
-	render(product: ProductModel): HTMLElement {
+	render(product: ProductModel, onClick: (productId: string) => void): HTMLElement {
 		const cardElement = this.template.content.firstElementChild.cloneNode(true) as HTMLElement;
 
 		this.fillCardData(cardElement, product);
-		cardElement.addEventListener('click', () => this.onClick(product.id));
+		cardElement.addEventListener('click', () => onClick(product.id));
 
 		return cardElement;
 	}

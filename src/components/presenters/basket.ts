@@ -35,6 +35,7 @@ class BasketPresenterImpl implements BasketPresenter {
 
 	removeProduct(orderItemId: string): void {
 		this.basketModel.removeItem(orderItemId);
+    this.basketModalView.removeItem(orderItemId);
 		this.basketModalView.setTotalPrice(this.basketModel.getTotalPrice());
 		this.basketModalView.setButtonState(this.basketModel.getTotalQuantity() > 0);
 		this.basketButtonView.render(this.basketModel.getTotalQuantity());
