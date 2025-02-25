@@ -115,6 +115,7 @@ class CheckoutPresenterImpl implements CheckoutPresenter {
 			this.orderDetailsView.setError(null);
 		}
 
+    this.orderDetailsView.changePaymentMethod(data.payment);
 		this.orderDetailsView.setButtonState(!addressValidationError && !paymentValidationError);
 	}
 

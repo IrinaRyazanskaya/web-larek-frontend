@@ -264,6 +264,9 @@ interface OrderDetailsView {
 	// Отображает ошибку при заполнении формы
 	setError(error: string | null): void;
 
+  // Меняет выбранный способ оплаты
+  changePaymentMethod(method: string): void;
+
 	close(): void; // Закрывает модальное окно
 }
 ```

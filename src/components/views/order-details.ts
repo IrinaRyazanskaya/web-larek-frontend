@@ -32,11 +32,6 @@ class OrderDetailsViewImpl extends Modal implements OrderDetailsView {
 
 		for (const paymentButton of paymentButtons) {
 			paymentButton.addEventListener('click', () => {
-				const currentActiveButton = this.form?.querySelector('.button_alt-active');
-				currentActiveButton?.classList.remove('button_alt-active');
-
-				paymentButton.classList.add('button_alt-active');
-
 				onInput({
 					payment: paymentButton.name,
 					address: this.addressInput.value,
@@ -82,6 +77,14 @@ class OrderDetailsViewImpl extends Modal implements OrderDetailsView {
 			this.errorSpan.textContent = error || '';
 		}
 	}
+
+  changePaymentMethod(method: string): void {
+    const currentActiveButton = this.form.querySelector('.button_alt-active');
+    currentActiveButton?.classList.remove('button_alt-active');
+
+    const newPaymentMethodButton = this.form.querySelector(`.button[name="${method}"]`);
+    newPaymentMethodButton?.classList.add('button_alt-active');
+  }
 }
 
 export { OrderDetailsViewImpl };
