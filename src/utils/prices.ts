@@ -1,7 +1,7 @@
 function formatPrice(amount: number | null): string {
   switch (amount) {
     case null: {
-      return 'Бесценно';
+      return "Бесценно";
     }
     case 1: {
       return `${amount} синапс`;

@@ -1,14 +1,14 @@
-import type { ProductModel } from './products';
+import type { ProductModel } from "./products";
 
 export interface BasketItemModel extends ProductModel {
-	orderItemId: string;
+  orderItemId: string;
 }
 
 export interface BasketModel {
-	addProduct(product: ProductModel): void; // Добавляет товар в корзину
-	removeItem(orderItemId: string): void; // Удаляет товар из корзины
-	getItems(): BasketItemModel[]; // Возвращает список товаров в корзине
-	getTotalQuantity(): number; // Возвращает общее количество товаров
-	getTotalPrice(): number; // Возвращает общую стоимость корзины
-	clear(): void; // Очищает корзину
+  addProduct(product: ProductModel): void; // Добавляет товар в корзину
+  removeItem(orderItemId: string): void; // Удаляет товар из корзины
+  getItems(): BasketItemModel[]; // Возвращает список товаров в корзине
+  getTotalQuantity(): number; // Возвращает общее количество товаров
+  getTotalPrice(): number; // Возвращает общую стоимость корзины
+  clear(): void; // Очищает корзину
 }

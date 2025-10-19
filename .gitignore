@@ -1,7 +1,17 @@
-node_modules
-dist
-.env
-.yarn
-.idea
-.vscode
+# IDE
+.idea/
+.vscode/
+
+# Logs
 *.log
+npm-debug.log*
+
+# Variables
+.env
+.env.test
+
+# Artifacts
+dist/
+
+# Dependencies
+node_modules/
