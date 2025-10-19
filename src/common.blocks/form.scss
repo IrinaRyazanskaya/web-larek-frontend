@@ -1,8 +1,10 @@
+@use "sass:color";
 @use "variables" as *;
 @use "mixins";
 
 .form {
   @include mixins.flex(column);
+
   gap: 1.5rem;
   border-radius: 3rem;
 
@@ -11,15 +13,21 @@
   }
 
   &__input {
-    background: transparent;
-    color: white;
+    box-sizing: border-box;
+    width: 100%;
+    padding: 1rem;
     border: $defaultBorder;
     border-radius: 1.5rem;
-    padding: 1rem;
+
     font-size: 1.4rem;
-    width: 100%;
-    box-sizing: border-box;
+    color: white;
+
+    background: transparent;
     outline-color: $secondary;
+
+    &::placeholder {
+      color: color.adjust($primaryLight, $lightness: 23%);
+    }
 
     &:focus {
       outline-style: solid;
@@ -28,10 +36,6 @@
     &:invalid {
       border-color: $error;
       outline-color: $error;
-    }
-
-    &::placeholder {
-      color: lighten($primaryLight, 23%);
     }
   }
 }

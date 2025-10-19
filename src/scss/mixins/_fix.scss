@@ -1,7 +1,7 @@
 @mixin clearfix {
   content: "";
-  display: table;
   clear: both;
+  display: table;
 }
 
 @mixin va-fix($fix) {

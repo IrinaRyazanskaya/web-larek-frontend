@@ -2,11 +2,11 @@ export function pascalToKebab(value: string): string {
   return value.replace(/([a-z0–9])([A-Z])/g, "$1-$2").toLowerCase();
 }
 
-export function isSelector(x: any): x is string {
+export function isSelector(x: unknown): x is string {
   return typeof x === "string" && x.length > 1;
 }
 
-export function isEmpty(value: any): boolean {
+export function isEmpty(value: unknown): boolean {
   return value === null || value === undefined;
 }
 
@@ -77,7 +77,7 @@ export function getObjectProperties(
     .filter(([name, prop]: [string, PropertyDescriptor]) =>
       filter ? filter(name, prop) : name !== "constructor",
     )
-    .map(([name, prop]) => name);
+    .map(([name]) => name);
 }
 
 /**
@@ -97,11 +97,14 @@ export function setElementData<T extends Record<string, unknown> | object>(
  */
 export function getElementData<T extends Record<string, unknown>>(
   el: HTMLElement,
-  scheme: Record<string, Function>,
+  scheme: Record<string, (value: string | undefined) => unknown>,
 ): T {
   const data: Partial<T> = {};
   for (const key in el.dataset) {
-    data[key as keyof T] = scheme[key](el.dataset[key]);
+    const transform = scheme[key];
+    if (transform) {
+      data[key as keyof T] = transform(el.dataset[key]) as T[keyof T];
+    }
   }
   return data as T;
 }

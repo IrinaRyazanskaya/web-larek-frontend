@@ -2,12 +2,16 @@
 @use "container" as mixins;
 
 @mixin button($color: $primary, $main: white, $hover: $secondary) {
-  padding: 1rem 2rem;
-  color: $color;
-  font-weight: 500;
-  background: $main;
-  border-radius: 0.8rem;
   cursor: pointer;
+
+  padding: 1rem 2rem;
+  border-radius: 0.8rem;
+
+  font-weight: 500;
+  color: $color;
+
+  background: $main;
+
   transition: background-color 0.3s ease;
 
   &:hover {
@@ -25,12 +29,16 @@
 }
 
 @mixin link($main: white, $hover: $secondary) {
+  cursor: pointer;
+
   padding: 0;
-  color: $main;
-  background: transparent;
   border: none;
   border-radius: 0;
-  cursor: pointer;
+
+  color: $main;
+
+  background: transparent;
+
   transition: color 0.3s ease;
 
   &:hover {
@@ -53,17 +61,17 @@
   transition: background-color 0.3s ease;
 
   &:hover {
-    //box-shadow: inset 0 0 0 $size $color;
+    // box-shadow: inset 0 0 0 $size $color;
     background-color: $hover;
   }
 
   &:disabled {
-    opacity: 0.25;
     cursor: default;
+    opacity: 0.25;
   }
 
   &:hover:disabled {
-    //box-shadow: inset 0 0 0 0 $color;
+    // box-shadow: inset 0 0 0 0 $color;
     background-color: unset;
   }
 }

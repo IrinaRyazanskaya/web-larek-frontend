@@ -3,20 +3,24 @@
 
 .modal {
   @include mixins.sublayer;
+
   // height: max-content;
   position: fixed;
+  z-index: 100;
   top: 0;
   left: 0;
+
+  display: none;
+  align-items: center;
+  justify-content: center;
+
+  box-sizing: border-box;
   width: 100vw;
   height: 100vh;
-  display: none;
-  justify-content: center;
-  align-items: center;
-  background-color: $overlayBackground;
-  z-index: 100;
   padding-top: 5vh;
   padding-bottom: 5vh;
-  box-sizing: border-box;
+
+  background-color: $overlayBackground;
 
   &_active {
     display: flex;
@@ -25,13 +29,17 @@
   &__container {
     @include mixins.container;
     @include mixins.flex(column);
+
+    position: relative;
+
+    overflow-y: auto;
     gap: $defaultPadding;
-    background-color: $background;
+
+    box-sizing: border-box;
     max-height: 90vmin;
     border-radius: 3rem;
-    box-sizing: border-box;
-    position: relative;
-    overflow-y: auto;
+
+    background-color: $background;
   }
 
   &__content {
@@ -46,29 +54,32 @@
 
   &__actions {
     @include mixins.flex(row);
-    align-items: center;
+
     gap: 2rem;
+    align-items: center;
   }
 
   &__close {
     position: absolute;
     top: calc(#{$defaultPadding} / 2);
     right: calc(#{$defaultPadding} / 2);
+
     @include mixins.icon(2rem, "close");
     @include mixins.link(white, $hover);
   }
 
   &__footer {
     @include mixins.flex(row);
-    align-items: center;
+
     gap: 2rem;
+    align-items: center;
   }
 
   &__message {
-    white-space: nowrap;
+    overflow: hidden;
     max-width: 60%;
     text-overflow: ellipsis;
-    overflow: hidden;
+    white-space: nowrap;
 
     &_error {
       color: $error;

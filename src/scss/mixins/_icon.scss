@@ -1,13 +1,45 @@
+@use "sass:map";
 @use "variables" as *;
 @use "interactive" as mixins;
 @use "../../vendor/glyphter";
 
+$glyphter-icons: (
+  "back": "\0041",
+  "basket": "\0042",
+  "basket-2": "\0043",
+  "chevron": "\0044",
+  "close": "\0045",
+  "square-check-regular": "\0046",
+  "square-regular": "\0047",
+  "star": "\0048",
+  "trash": "\0049"
+);
+
 @mixin icon($size, $name) {
+  $glyph: map.get($glyphter-icons, $name);
+
+  @if not $glyph {
+    @error "Unknown icon `#{$name}`. Available icons: #{map.keys($glyphter-icons)}.";
+  }
+
   display: inline-block;
+
   width: $size;
   height: $size;
-  font-size: $size;
   padding: 0;
-  @extend .icon;
-  @extend .icon-#{$name};
+
+  font-size: $size;
+
+  &::before {
+    content: $glyph;
+
+    display: inline-block;
+
+    font-family: Glyphter, sans-serif;
+    font-weight: normal;
+    font-style: normal;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1;
+  }
 }
