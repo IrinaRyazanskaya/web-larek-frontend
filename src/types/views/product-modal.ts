@@ -1,11 +1,11 @@
-import type { ProductModel } from '../models/products';
+import type { ProductModel } from "../models/products";
 
 export interface ProductModalView {
-	render(
-		product: ProductModel,
+  render(
+    product: ProductModel,
     isAllowedToBuy: boolean,
-		onAddToBasket: (productId: string) => void,
-		onClose: () => void
-	): HTMLElement; // Отображает информацию о товаре
-	close(): void; // Закрывает модальное окно
+    onAddToBasket: (productId: string) => void,
+    onClose: () => void,
+  ): HTMLElement; // Отображает информацию о товаре
+  close(): void; // Закрывает модальное окно
 }

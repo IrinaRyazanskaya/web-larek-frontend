@@ -1,76 +1,76 @@
-import type { UserDataModel, UserModel } from '../../types/models/user';
+import type { UserDataModel, UserModel } from "../../types/models/user";
 
 const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 const phoneRegex = /^\+?[0-9\s\-()]{7,}$/;
 
 class UserModelImpl implements UserModel {
-	private data: UserDataModel;
+  private data: UserDataModel;
 
-	constructor() {
-		this.data = {
-			address: '',
-			email: '',
-			payment: '',
-			phone: '',
-		};
-	}
+  constructor() {
+    this.data = {
+      address: "",
+      email: "",
+      payment: "",
+      phone: "",
+    };
+  }
 
-	updateData(newData: Partial<UserDataModel>): void {
-		this.data = { ...this.data, ...newData };
-	}
+  updateData(newData: Partial<UserDataModel>): void {
+    this.data = { ...this.data, ...newData };
+  }
 
-	getData(): UserDataModel {
-		return this.data;
-	}
+  getData(): UserDataModel {
+    return this.data;
+  }
 
-	checkAddressValid(): string | null {
-		if (this.data.address === '') {
-			return 'Адрес доставки не указан, заполните поле';
-		}
+  checkAddressValid(): string | null {
+    if (this.data.address === "") {
+      return "Адрес доставки не указан, заполните поле";
+    }
 
-		return null;
-	}
+    return null;
+  }
 
-	checkPaymentValid(): string | null {
-		if (this.data.payment === '') {
-			return 'Способ оплаты не выбран';
-		}
+  checkPaymentValid(): string | null {
+    if (this.data.payment === "") {
+      return "Способ оплаты не выбран";
+    }
 
-		return null;
-	}
+    return null;
+  }
 
-	checkEmailValid(): string | null {
-		if (this.data.email === '') {
-			return 'Email не указан, заполните поле';
-		}
+  checkEmailValid(): string | null {
+    if (this.data.email === "") {
+      return "Email не указан, заполните поле";
+    }
 
-		if (!emailRegex.test(this.data.email)) {
-			return 'Указан некорректный email';
-		}
+    if (!emailRegex.test(this.data.email)) {
+      return "Указан некорректный email";
+    }
 
-		return null;
-	}
+    return null;
+  }
 
-	checkPhoneValid(): string | null {
-		if (this.data.phone === '') {
-			return 'Номер телефона не указан, заполните поле';
-		}
+  checkPhoneValid(): string | null {
+    if (this.data.phone === "") {
+      return "Номер телефона не указан, заполните поле";
+    }
 
-		if (!phoneRegex.test(this.data.phone)) {
-			return 'Указан некорректный номер';
-		}
+    if (!phoneRegex.test(this.data.phone)) {
+      return "Указан некорректный номер";
+    }
 
-		return null;
-	}
+    return null;
+  }
 
-	reset(): void {
-		this.data = {
-			address: '',
-			email: '',
-			payment: '',
-			phone: '',
-		};
-	}
+  reset(): void {
+    this.data = {
+      address: "",
+      email: "",
+      payment: "",
+      phone: "",
+    };
+  }
 }
 
 export { UserModelImpl };

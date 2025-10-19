@@ -1,13 +1,13 @@
-import type { ProductModel } from '../models/products';
+import type { ProductModel } from "../models/products";
 
 export interface BasketModalView {
-	render(
-		items: ProductModel[],
+  render(
+    items: ProductModel[],
     totalPrice: number,
-		onCheckout: () => void,
-		onItemRemove: (orderItemId: string) => void,
-    onClose: () => void
-	): HTMLElement; // Отображает содержимое корзины и кнопку оформления
+    onCheckout: () => void,
+    onItemRemove: (orderItemId: string) => void,
+    onClose: () => void,
+  ): HTMLElement; // Отображает содержимое корзины и кнопку оформления
 
   removeItem(orderItemId: string): void; // Удаляет товар из корзины
 

@@ -5,25 +5,25 @@ class Modal {
   private onClose?: () => void;
 
   constructor() {
-    this.modal = document.querySelector<HTMLElement>('.modal');
-    this.modalContent = this.modal.querySelector<HTMLElement>('.modal__content');
-    this.closeButton = this.modal.querySelector<HTMLButtonElement>('.modal__close');
+    this.modal = document.querySelector<HTMLElement>(".modal");
+    this.modalContent = this.modal.querySelector<HTMLElement>(".modal__content");
+    this.closeButton = this.modal.querySelector<HTMLButtonElement>(".modal__close");
     this.handleClose = this.handleClose.bind(this);
   }
 
   protected renderModal(onClose: () => void): HTMLElement {
-    this.modalContent.innerHTML = '';
-    this.modal.classList.add('modal_active');
+    this.modalContent.innerHTML = "";
+    this.modal.classList.add("modal_active");
 
     this.onClose = onClose;
-    this.modal.addEventListener('click', this.handleClose);
+    this.modal.addEventListener("click", this.handleClose);
 
     return this.modal;
   }
 
   close(): void {
-    this.modal.classList.remove('modal_active');
-    this.modal.removeEventListener('click', this.handleClose);
+    this.modal.classList.remove("modal_active");
+    this.modal.removeEventListener("click", this.handleClose);
   }
 
   private handleClose(event: Event): void {
