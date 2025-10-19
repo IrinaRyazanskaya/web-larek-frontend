@@ -17,6 +17,10 @@
     margin: 0;
     font-size: $titleFontSize;
     font-weight: 500;
+
+    @media (width <= 640px) {
+      font-size: $titleFontSizeMobile;
+    }
   }
 
   &__image {
@@ -43,10 +47,31 @@
 
       aspect-ratio: 3 / 4;
       width: clamp(240px, 45%, 420px);
-      margin: 3.75rem;
+      margin: clamp(1.5rem, 4vw, 3.75rem);
       border-radius: $defaultBorderRadius;
 
       object-fit: cover;
+    }
+
+    @media (width <= 768px) {
+      flex-direction: column;
+
+      .card__image {
+        width: 100%;
+        margin: 0 0 $defaultPadding;
+      }
+
+      .card__column {
+        gap: $defaultPadding;
+        width: 100%;
+      }
+
+      .card__row {
+        flex-wrap: wrap;
+        gap: 1.2rem;
+        justify-content: space-between;
+        width: 100%;
+      }
     }
   }
 

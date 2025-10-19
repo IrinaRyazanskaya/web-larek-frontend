@@ -24,6 +24,6 @@
 
 @mixin grid($min, $gap) {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax($min, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, $min), 1fr));
   gap: $gap;
 }

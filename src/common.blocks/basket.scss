@@ -14,6 +14,10 @@
   }
 
   &__item {
+    @include mixins.flex(row);
+
+    gap: 1.5rem;
+    align-items: center;
     padding: 1.5rem 0;
     border-bottom: 1px solid $primary;
 
@@ -38,8 +42,55 @@
       @include mixins.icon(2rem, "trash");
       @include mixins.link($hover, white);
 
-      margin-left: 4rem;
+      margin-left: 1.5rem;
       opacity: 0.5;
+    }
+
+    .card__title {
+      flex: 1;
+    }
+
+    .card__price {
+      margin-left: auto;
+    }
+  }
+
+  @media (width <= 640px) {
+    &__item {
+      display: grid;
+      grid-template-areas:
+        "basket-index basket-title"
+        "basket-index basket-price"
+        "basket-button basket-button";
+      grid-template-columns: auto 1fr;
+      gap: 1rem 1.5rem;
+      align-items: flex-start;
+
+      .basket__item-index {
+        grid-area: basket-index;
+
+        width: 44px;
+        height: 44px;
+        margin-right: 0;
+
+        font-size: 1.1rem;
+      }
+
+      .card__title {
+        grid-area: basket-title;
+        font-size: clamp(1.1rem, 4vw, 1.5rem);
+      }
+
+      .card__price {
+        grid-area: basket-price;
+        margin-left: 0;
+        font-size: clamp(1rem, 3.5vw, 1.3rem);
+      }
+
+      .basket__item-delete {
+        grid-area: basket-button;
+        margin-left: 0;
+      }
     }
   }
 }

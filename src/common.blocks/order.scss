@@ -17,5 +17,28 @@
     @include mixins.flex(row);
 
     gap: 1.5rem;
+
+    .button {
+      flex: 1 1 auto;
+      white-space: nowrap;
+    }
+  }
+
+  @media (width <= 480px) {
+    gap: 2.4rem;
+    margin-bottom: 2.4rem;
+
+    &__field {
+      gap: 1.2rem;
+    }
+
+    &__buttons {
+      flex-wrap: wrap;
+      gap: 1.2rem;
+
+      .button {
+        width: 100%;
+      }
+    }
   }
 }

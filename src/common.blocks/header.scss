@@ -23,7 +23,6 @@
   }
 
   &__basket {
-    // @include mixins.icon($headerElementsSize, 'basket-2');
     @include mixins.link($primary, $hover);
 
     cursor: pointer;
