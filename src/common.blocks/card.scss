@@ -17,6 +17,10 @@
     margin: 0;
     font-size: $titleFontSize;
     font-weight: 500;
+
+    @media (width <= 640px) {
+      font-size: $titleFontSizeMobile;
+    }
   }
 
   &__image {
