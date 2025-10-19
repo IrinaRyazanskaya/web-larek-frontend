@@ -1,4 +1,4 @@
-import { WebLarekClientImpl } from "./components/clients/weblarek";
+import { WebLarekMockClient } from "./components/clients/weblarek";
 import { BasketModelImpl } from "./components/models/basket";
 import { ProductsModelImpl } from "./components/models/products";
 import { BasketItemViewImpl } from "./components/views/basket-item";
@@ -18,7 +18,7 @@ import "./scss/styles.scss";
 
 const modalContainer = document.querySelector<HTMLElement>("#modal-container");
 
-const client = new WebLarekClientImpl();
+const client = new WebLarekMockClient();
 
 const productsModel = new ProductsModelImpl(client);
 const basketModel = new BasketModelImpl();
